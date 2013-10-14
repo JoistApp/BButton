@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '6.0'
   s.source_files = 'BButton'
   s.public_header_files = 'BButton'
+  s.dependency "FontAwesome+iOS"
   s.resource  = "BButton/resources/FontAwesome.ttf"
   s.requires_arc = true
-  s.dependency = "FontAwesome+iOS"
   s.framework = 'CoreGraphics'
 end
