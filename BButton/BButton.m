@@ -95,7 +95,7 @@
     if(self) {
         self.fastTitleLabel.font = [UIFont fontWithName:@"FontAwesome" size:fontSize];
         self.fastTitleLabel.textAlignment = NSTextAlignmentCenter;
-        [self setTitle:[NSString stringFromAwesomeIcon:icon] forState:UIControlStateNormal];
+        [self setTitle:[NSString fontAwesomeIconStringForEnum:icon] forState:UIControlStateNormal];
     }
     return self;
 }
