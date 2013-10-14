@@ -212,13 +212,13 @@
 
 - (void)addAwesomeIcon:(FAIcon)icon beforeTitle:(BOOL)before
 {
-    NSString *iconString = [NSString stringFromAwesomeIcon:icon];
+    NSString *iconString = [NSString fontAwesomeIconStringForEnum:icon];
     self.fastTitleLabel.font = [UIFont fontWithName:@"FontAwesome"
                                            size:self.fastTitleLabel.font.pointSize];
 
     NSString *title = [NSString stringWithFormat:@"%@", iconString];
 
-    if(![self.fastTitleLabel.text isEmpty]) {
+    if(![self.fastTitleLabel.text.length == 0]) {
         if(before)
             title = [title stringByAppendingFormat:@" %@", self.fastTitleLabel.text];
         else
