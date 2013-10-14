@@ -6,11 +6,12 @@ Pod::Spec.new do |s|
   s.screenshots  = "https://raw.github.com/jessesquires/BButton/master/Screenshots/screenshot-1.png", "https://raw.github.com/jessesquires/BButton/master/Screenshots/screenshot-2.png"
   s.license      = 'BSD'
   s.author       = { "Jesse Squires" => "jesse.d.squires@gmail.com" }
-  s.source       = { :git => "https://github.com/jessesquires/BButton.git", :tag => '2.0.0' }
-  s.platform     = :ios, '5.0'
+  s.source       = { :git => "https://github.com/JoistApp/BButton.git" }
+  s.platform     = :ios, '6.0'
   s.source_files = 'BButton'
   s.public_header_files = 'BButton'
   s.resource  = "BButton/resources/FontAwesome.ttf"
   s.requires_arc = true
+  s.dependency = "FontAwesome+iOS"
   s.framework = 'CoreGraphics'
 end
