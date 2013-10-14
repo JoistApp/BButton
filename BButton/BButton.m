@@ -218,7 +218,7 @@
 
     NSString *title = [NSString stringWithFormat:@"%@", iconString];
 
-    if(![self.fastTitleLabel.text.length == 0]) {
+    if(self.fastTitleLabel.text.length != 0) {
         if(before)
             title = [title stringByAppendingFormat:@" %@", self.fastTitleLabel.text];
         else
