@@ -37,7 +37,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIColor+BButton.h"
-#import "NSString+FontAwesome.h"
+#import <FontAwesome+iOS/NSString+FontAwesome.h>
 
 typedef enum {
     BButtonTypeDefault = 0,

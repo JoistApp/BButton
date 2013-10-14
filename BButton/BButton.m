@@ -151,10 +151,10 @@
 - (void)setEnabled:(BOOL)enabled
 {
     [super setEnabled:enabled];
-    
+
     if(self.shouldShowDisabled)
         [self setGradientEnabled:enabled];
-    
+
     [self setNeedsDisplay];
 }
 
@@ -162,34 +162,34 @@
 - (void)setColor:(UIColor *)newColor
 {
     color = newColor;
-    
+
     if([newColor isLightColor]) {
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self setTitleShadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.6f] forState:UIControlStateNormal];
-        
+
         if(self.shouldShowDisabled)
             [self setTitleColor:[UIColor colorWithWhite:0.4f alpha:0.5f] forState:UIControlStateDisabled];
     }
     else {
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self setTitleShadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.6f] forState:UIControlStateNormal];
-        
+
         if(self.shouldShowDisabled)
             [self setTitleColor:[UIColor colorWithWhite:1.0f alpha:0.5f] forState:UIControlStateDisabled];
     }
-    
+
     if(self.shouldShowDisabled)
         [self setGradientEnabled:self.enabled];
     else
         [self setGradientEnabled:YES];
-    
+
     [self setNeedsDisplay];
 }
 
 - (void)setShouldShowDisabled:(BOOL)show
 {
     shouldShowDisabled = show;
-    
+
     if(show) {
         if([self.color isLightColor])
             [self setTitleColor:[UIColor colorWithWhite:0.4f alpha:0.5f] forState:UIControlStateDisabled];
@@ -215,23 +215,23 @@
     NSString *iconString = [NSString stringFromAwesomeIcon:icon];
     self.fastTitleLabel.font = [UIFont fontWithName:@"FontAwesome"
                                            size:self.fastTitleLabel.font.pointSize];
-    
+
     NSString *title = [NSString stringWithFormat:@"%@", iconString];
-    
+
     if(![self.fastTitleLabel.text isEmpty]) {
         if(before)
             title = [title stringByAppendingFormat:@" %@", self.fastTitleLabel.text];
         else
             title = [NSString stringWithFormat:@"%@  %@", self.fastTitleLabel.text, iconString];
     }
-    
+
     [self setTitle:title forState:UIControlStateNormal];
 }
 
 + (UIColor *)colorForButtonType:(BButtonType)type
 {
     UIColor *newColor = nil;
-    
+
     switch (type) {
         case BButtonTypePrimary:
             newColor = [UIColor colorWithRed:0.00f green:0.33f blue:0.80f alpha:1.00f];
@@ -268,7 +268,7 @@
             newColor = [UIColor colorWithRed:0.85f green:0.85f blue:0.85f alpha:1.00f];
             break;
     }
-    
+
     return newColor;
 }
 
@@ -277,39 +277,39 @@
 {
     [super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
+
     UIColor *border = [self.color darkenColorWithValue:0.06f];
-    
+
     // Shadow Declarations
     UIColor *shadow = [self.color lightenColorWithValue:0.50f];
     CGSize shadowOffset = CGSizeMake(0.0f, 1.0f);
     CGFloat shadowBlurRadius = 2.0f;
-    
+
     // Rounded Rectangle Drawing
     UIBezierPath *roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0.5f, 0.5f, rect.size.width-1.0f, rect.size.height-1.0f)
                                                                     cornerRadius:6.0f];
-    
+
     CGContextSaveGState(context);
-    
+
     [roundedRectanglePath addClip];
-    
+
     CGContextDrawLinearGradient(context,
                                 self.gradient,
                                 CGPointMake(0.0f, self.highlighted ? rect.size.height - 0.5f : 0.5f),
                                 CGPointMake(0.0f, self.highlighted ? 0.5f : rect.size.height - 0.5f), 0.0f);
-    
+
     CGContextRestoreGState(context);
-    
+
     if(!self.highlighted) {
         // Rounded Rectangle Inner Shadow
         CGRect roundedRectangleBorderRect = CGRectInset([roundedRectanglePath bounds], -shadowBlurRadius, -shadowBlurRadius);
         roundedRectangleBorderRect = CGRectOffset(roundedRectangleBorderRect, -shadowOffset.width, -shadowOffset.height);
         roundedRectangleBorderRect = CGRectInset(CGRectUnion(roundedRectangleBorderRect, [roundedRectanglePath bounds]), -1.0f, -1.0f);
-        
+
         UIBezierPath *roundedRectangleNegativePath = [UIBezierPath bezierPathWithRect: roundedRectangleBorderRect];
         [roundedRectangleNegativePath appendPath: roundedRectanglePath];
         roundedRectangleNegativePath.usesEvenOddFillRule = YES;
-        
+
         CGContextSaveGState(context);
         {
             CGFloat xOffset = shadowOffset.width + round(roundedRectangleBorderRect.size.width);
@@ -318,7 +318,7 @@
                                         CGSizeMake(xOffset + copysign(0.1f, xOffset), yOffset + copysign(0.1f, yOffset)),
                                         shadowBlurRadius,
                                         shadow.CGColor);
-            
+
             [roundedRectanglePath addClip];
             CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(roundedRectangleBorderRect.size.width), 0.0f);
             [roundedRectangleNegativePath applyTransform: transform];
@@ -327,7 +327,7 @@
         }
         CGContextRestoreGState(context);
     }
-    
+
     [border setStroke];
     roundedRectanglePath.lineWidth = 1.0f;
     [roundedRectanglePath stroke];
@@ -337,10 +337,10 @@
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     UIColor *topColor = enabled ? [self.color lightenColorWithValue:0.12f] : [self.color darkenColorWithValue:0.12f];
-    
+
     NSArray *newGradientColors = [NSArray arrayWithObjects:(id)topColor.CGColor, (id)self.color.CGColor, nil];
     CGFloat newGradientLocations[] = {0.0f, 1.0f};
-    
+
     gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)newGradientColors, newGradientLocations);
     CGColorSpaceRelease(colorSpace);
 }
